@@ -47,7 +47,7 @@ void mioWrite(
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
-// OBJ
+// OBJ files
 ///////////////////////////////////////////////////////////////////////////////
 
 /*
@@ -84,6 +84,10 @@ void mioReadOBJ(
     // number of faces
     unsigned int* numFaces);
 
+/*
+    Funcion to write out an obj file that stores a single 3D mesh object (in ASCII
+    format).
+*/
 void mioWriteOBJ(
     // absolute path to file
     const char* fpath,
@@ -111,9 +115,14 @@ void mioWriteOBJ(
     unsigned int numFaces);
 
 ///////////////////////////////////////////////////////////////////////////////
-// OFF
+// OFF files
 ///////////////////////////////////////////////////////////////////////////////
 
+/*
+    Funcion to read in an .off file that stores a single 3D mesh object (in ASCII
+    format). The pointer parameters will be allocated inside this function and must
+    be freed by caller.
+*/
 void mioReadOFF(
     // absolute path to file
     const char* fpath,
@@ -128,6 +137,11 @@ void mioReadOFF(
     // number of faces (number of elements in "pFaceSizes")
     unsigned int* numFaces);
 
+/*
+    Funcion to write out a .obj file that stores a single 3D mesh object (in ASCII
+    format). 
+    NOTE: To ignore edges when writing the output just pass pEdgeVertexIndices = NULL and set numEdges = 0
+*/
 void mioWriteOFF(
     // absolute path to file
     const char* fpath,

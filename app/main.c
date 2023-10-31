@@ -24,6 +24,10 @@ int main()
     unsigned int numTexCoords = 0;
     unsigned int numFaces = 0;
 
+    ///////////////////////////////////////////////////////////////////////////////
+    // OBJ files 
+    ///////////////////////////////////////////////////////////////////////////////
+
     { // mioReadOBJ (only vertices and faces)
 
         mioReadOBJ(DATA_DIR "/cube.obj", &pVertices, &pNormals,
@@ -390,6 +394,44 @@ int main()
         numVertices = 0;
         numNormals = 0;
         numTexCoords = 0;
+        numFaces = 0;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    // OFF files 
+    ///////////////////////////////////////////////////////////////////////////////
+
+    { // mioReadOFF (only vertices and faces)
+
+        mioReadOFF(DATA_DIR "/cube.off", &pVertices, &pFaceVertexIndices, &pFaceSizes, &numVertices, &numFaces);
+
+        ASSERT(pVertices != NULL);
+        ASSERT(pFaceSizes != NULL);
+        ASSERT(pFaceVertexIndices != NULL);
+        ASSERT(numVertices == 8);
+        ASSERT(numFaces == 12);
+
+        unsigned int numEdges = 0;
+        unsigned int* pEdgeVertexIndices = NULL;
+
+        mioWriteOFF("cube-out.off", pVertices, pFaceVertexIndices, pFaceSizes, pEdgeVertexIndices, numVertices, numFaces, numEdges);
+
+        if (pVertices != NULL) {
+            free(pVertices);
+            pVertices = NULL;
+        }
+
+        if (pFaceVertexIndices != NULL) {
+            free(pFaceVertexIndices);
+            pFaceVertexIndices = NULL;
+        }
+
+        if (pFaceSizes != NULL) {
+            free(pFaceSizes);
+            pFaceSizes = NULL;
+        }
+
+        numVertices = 0;
         numFaces = 0;
     }
 

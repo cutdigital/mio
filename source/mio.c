@@ -13,7 +13,7 @@
 #include <stdbool.h>
 
 ///////////////////////////////////////////////////////////////////////////////
-// OFF
+// OFF 
 ///////////////////////////////////////////////////////////////////////////////
 
 #if defined(_WIN32)
@@ -418,6 +418,8 @@ void mioReadOBJ(
         size_t nread = 0;
 
         while ((nread = getline(&lineBuf, &lineBufLen, file)) != (((size_t)0) - 1) /*-1*/) { // each iteration will parse a line in the file
+            printf("line : ");
+            printf(lineBuf);
 
             lineBuf[strcspn(lineBuf, "\r\n")] = '\0'; // strip newline and carriage return
 
@@ -528,9 +530,9 @@ void mioReadOBJ(
                 }
             } break;
             case FACE: { // parsing faces
-                const int faceId = nFaces++; // incremental face count in file
+                const int faceId = (nFaces++); // incremental face count in file
 
-                if (passIterator == 1) {
+                if (passIterator == 1) { // second pass
                     //
                     // count the number of vertices in face
                     //
@@ -557,7 +559,7 @@ void mioReadOBJ(
                     assert(pFaceSizes != NULL);
 
                     const unsigned int faceVertexCount = (*pFaceSizes)[faceId];
-                    // printf("lineBuf = %s\n", lineBuf);
+                    //printf("lineBuf = %s\n", lineBuf);
                     int iter = 0; // incremented per vertex of face
 
                     char* token = NULL;
@@ -568,13 +570,27 @@ void mioReadOBJ(
                     for (token = strtok(lineBuf, " "); token != NULL;
                          token = strtok(token + strlen(token) + 1, " ")) {
 
+                        token[strcspn(token, "\r\n")] = '\0'; // strip newline and carriage return (issue on windows)
+
+                        //printf("token: %s\n", token);
+
                         const size_t tokenLen = strlen(token);
+
+                        if (tokenLen == 0)
+                        {
+                            if (buf != NULL)
+                            {
+                                free(buf);
+                                buf = NULL;
+                            }
+                            break; // done
+                        }
 
                         // allocate enough to accomodate all characters on the line since a face can be defined by an
                         // arbitrary number of vertices whose indices typically require several digits.
                         buf = (char*)realloc(NULL, sizeof(char) * tokenLen);
 
-                        memset(buf, 0, tokenLen); // equivalent to filling with '\0'
+                        memset(buf, '\0', tokenLen); 
 
                         strncpy(buf, token, tokenLen);
 
@@ -583,15 +599,26 @@ void mioReadOBJ(
                         }
 
                         iter++;
-                        int faceVertexDataIt = 0;
+                        int faceVertexDataIt = 0; // vertex id/texcoord id/normal id
 
-                        // printf("Line: %s\n", buf);
+                        // printf("buf: %s\n", buf);
 
                         // for each data element of a face-vertex
                         for (tokenElem = strtok(buf, "/"); tokenElem != NULL;
                              tokenElem = strtok(tokenElem + strlen(tokenElem) + 1, "/")) {
 
-                            // printf("\tToken: %s\n", tokenElem);
+                            // distance from the beginning of "buf", where "buf" contains a small string 
+                            // about the current face-vectex e.g. "3/5" or "3" or "2/1/5" or "5//3"
+                            ptrdiff_t distFromBufStart = (tokenElem - buf);
+                            //printf("\tdistFromBufStart: %td\n", distFromBufStart);
+
+                            if (distFromBufStart >= tokenLen) // TODO: test this!!!
+                            {
+                                // NOTE: "tokenElem + strlen(tokenElem) + 1" can point to some undefined region of mem if "tokenElem" is the last element).
+                                break; 
+                            }
+
+                            //printf("\ttokenElem: %s\n", tokenElem);
 
                             const bool haveTexCoords = (nTexCoords > 0);
 
@@ -600,7 +627,7 @@ void mioReadOBJ(
                             }
 
                             int val;
-                            sscanf(token, "%d", &val); // extract face vertex data index
+                            int sscanfRet = sscanf(token, "%d", &val); // extract face vertex data index
 
                             switch (faceVertexDataIt) {
                             case 0: // vertex id
@@ -619,6 +646,12 @@ void mioReadOBJ(
                             faceVertexDataIt++;
                         }
                         faceIndicesCounter += 1;
+                    }
+
+                    if (buf != NULL)
+                    {
+                        free(buf);
+                        buf = NULL;
                     }
 
                     if (iter != (int)faceVertexCount) {
