@@ -20,62 +20,57 @@
 //  Copyright (c) 2023 CutDigital Enterprise Ltd. All rights reserved in all media.
 //
 
-#ifndef _MIO_H_
-#define _MIO_H_
+#ifndef __MIO_OFF_H__
+#define __MIO_OFF_H__  1
 
 #ifdef __cplusplus
 extern "C" {
 #endif // #ifdef __cplusplus
 
-#if defined(_WIN32)
-// https://stackoverflow.com/questions/735126/are-there-alternate-implementations-of-gnu-getline-interface/735472#735472
-/* Modifications, public domain as well, by Antti Haapala, 11/10/17
-- Switched to getc on 5/23/19 */
-#include <errno.h>
-#include <stdint.h>
-#include <stdio.h>
-// if typedef doesn't exist (msvc)
-typedef intptr_t ssize_t;
-ssize_t getline(char** lineptr, size_t* n, FILE* stream)
-#endif // #if defined(_WIN32)
-
-#if 0
 /*
-    Function to read in a mesh file. Supported file formats are .obj and .off
+    Funcion to read in an .off file that stores a single 3D mesh object (in ASCII
+    format). The pointer parameters will be allocated inside this function and must
+    be freed by caller.
 */
-void mioRead(
+void mioReadOFF(
     // absolute path to file
     const char* fpath,
     // pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
     double** pVertices,
-    // pointer to list of face sizes (number of vertices in each face) stored as [a,b,c,d,e,f,g,...]
-    unsigned int** pFaceSizes,
     // pointer to list of face-vertex indices stored as [ijkl,ijk,ijkl,ijklmn,ijk,...]
     unsigned int** pFaceVertexIndices,
+    // pointer to list of face sizes (number of vertices in each face) stored as [a,b,c,d,e,f,g,...]
+    unsigned int** pFaceSizes,
     // number of vertices in "pVertices"
     unsigned int* numVertices,
-    // number of faces
-    unsigned int* numFaces
-);
+    // number of faces (number of elements in "pFaceSizes")
+    unsigned int* numFaces);
 
-void mioWrite(
+/*
+    Funcion to write out a .obj file that stores a single 3D mesh object (in ASCII
+    format). 
+    NOTE: To ignore edges when writing the output just pass pEdgeVertexIndices = NULL and set numEdges = 0
+*/
+void mioWriteOFF(
     // absolute path to file
     const char* fpath,
     // pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
-    double** pVertices,
-    // pointer to list of face sizes (number of vertices in each face) stored as [a,b,c,d,e,f,g,...]
-    unsigned int** pFaceSizes,
+    double* pVertices,
     // pointer to list of face-vertex indices stored as [ijkl,ijk,ijkl,ijklmn,ijk,...]
-    unsigned int** pFaceVertexIndices,
+    unsigned int* pFaceVertexIndices,
+    // pointer to list of face sizes (number of vertices in each face) stored as [a,b,c,d,e,f,g,...]
+    unsigned int* pFaceSizes,
+    // pointer to list of edge-vertex indices stored as [ij,ij,ij,ij,ij,...]
+    unsigned int* pEdgeVertexIndices,
     // number of vertices in "pVertices"
-    unsigned int* numVertices,
-    // number of faces
-    unsigned int* numFaces
-);
-#endif
+    unsigned int numVertices,
+    // number of faces (number of elements in "pFaceSizes")
+    unsigned int numFaces,
+    // number of edges (number of elements in "pEdgeVertexIndices" divided by 2)
+    unsigned int numEdges);
 
 #ifdef __cplusplus
 } // extern "C"
 #endif // #ifdef __cplusplus
 
-#endif // #ifndef _MIO_H_
+#endif // #ifndef __MIO_OFF_H__
