@@ -82,4 +82,43 @@ ssize_t getline(char** lineptr, size_t* n, FILE* stream)
 	return pos;
 }
 
+/*
+    Function to read in a mesh file. Supported file formats are .obj and .off
+*/
+void mioRead(
+    // absolute path to file
+    const char* fpath,
+    // pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
+    double** pVertices,
+    // pointer to list of face sizes (number of vertices in each face) stored as [a,b,c,d,e,f,g,...]
+    unsigned int** pFaceSizes,
+    // pointer to list of face-vertex indices stored as [ijkl,ijk,ijkl,ijklmn,ijk,...]
+    unsigned int** pFaceVertexIndices,
+    // number of vertices in "pVertices"
+    unsigned int* numVertices,
+    // number of faces
+    unsigned int* numFaces
+)
+{
+
+}
+
+void mioWrite(
+    // absolute path to file
+    const char* fpath,
+    // pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
+    double** pVertices,
+    // pointer to list of face sizes (number of vertices in each face) stored as [a,b,c,d,e,f,g,...]
+    unsigned int** pFaceSizes,
+    // pointer to list of face-vertex indices stored as [ijkl,ijk,ijkl,ijklmn,ijk,...]
+    unsigned int** pFaceVertexIndices,
+    // number of vertices in "pVertices"
+    unsigned int* numVertices,
+    // number of faces
+    unsigned int* numFaces
+)
+{
+    
+}
+
 #endif // #if defined (_WIN32)

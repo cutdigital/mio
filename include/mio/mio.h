@@ -36,10 +36,9 @@ extern "C" {
 #include <stdio.h>
 // if typedef doesn't exist (msvc)
 typedef intptr_t ssize_t;
-ssize_t getline(char** lineptr, size_t* n, FILE* stream)
+ssize_t getline(char** lineptr, size_t* n, FILE* stream);
 #endif // #if defined(_WIN32)
 
-#if 0
 /*
     Function to read in a mesh file. Supported file formats are .obj and .off
 */
@@ -72,7 +71,6 @@ void mioWrite(
     // number of faces
     unsigned int* numFaces
 );
-#endif
 
 #ifdef __cplusplus
 } // extern "C"
