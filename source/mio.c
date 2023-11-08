@@ -1,33 +1,40 @@
-//
-//  CUTDIGITAL ENTERPRISE LTD PROPRIETARY INFORMATION
-//
-//  This software is supplied under the terms of a separately provided license agreement
-//  with CutDigital Enterprise Ltd and may not be copied or exploited except in 
-//  accordance with the terms of that agreement.
-//
-//  THIS SOFTWARE IS PROVIDED BY CUTDIGITAL ENTERPRISE LTD "AS IS" AND ANY
-//  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-//  PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL CUTDIGITAL ENTERPRISE LTD BE LIABLE 
-//  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-//  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-//  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
-//  BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-//  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
-//  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
-//  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-//  Copyright (c) 2023 CutDigital Enterprise Ltd. All rights reserved in all media.
-//
+/***************************************************************************
+ *
+ *  Copyright (C) 2023 CutDigital Enterprise Ltd
+ *  Licensed under the GNU GPL License, Version 3.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      https://www.gnu.org/licenses/gpl-3.0.html.
+ *
+ *  For your convenience, a copy of the License has been included in this
+ *  repository.
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ * mio.c
+ *
+ * \brief:
+ *  TODO: ...
+ *
+ * Author(s):
+ *
+ *    Floyd M. Chitalu    CutDigital Enterprise Ltd.
+ *
+ **************************************************************************/
 
 #include "mio/mio.h"
 
 #if defined(_WIN32)
-
+#	include <stdlib.h> // https://stackoverflow.com/questions/44504429/c-write-access-violation
 ssize_t getline(char** lineptr, size_t* n, FILE* stream)
 {
-	size_t pos;
-	int c;
+	size_t pos = 0;
+	int c = 0;
 
 	if(lineptr == NULL || stream == NULL || n == NULL)
 	{
@@ -86,39 +93,37 @@ ssize_t getline(char** lineptr, size_t* n, FILE* stream)
     Function to read in a mesh file. Supported file formats are .obj and .off
 */
 void mioRead(
-    // absolute path to file
-    const char* fpath,
-    // pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
-    double** pVertices,
-    // pointer to list of face sizes (number of vertices in each face) stored as [a,b,c,d,e,f,g,...]
-    unsigned int** pFaceSizes,
-    // pointer to list of face-vertex indices stored as [ijkl,ijk,ijkl,ijklmn,ijk,...]
-    unsigned int** pFaceVertexIndices,
-    // number of vertices in "pVertices"
-    unsigned int* numVertices,
-    // number of faces
-    unsigned int* numFaces
-)
+	// absolute path to file
+	const char* fpath,
+	// pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
+	double** pVertices,
+	// pointer to list of face sizes (number of vertices in each face) stored as [a,b,c,d,e,f,g,...]
+	unsigned int** pFaceSizes,
+	// pointer to list of face-vertex indices stored as [ijkl,ijk,ijkl,ijklmn,ijk,...]
+	unsigned int** pFaceVertexIndices,
+	// number of vertices in "pVertices"
+	unsigned int* numVertices,
+	// number of faces
+	unsigned int* numFaces)
 {
-
+	// TODO
 }
 
 void mioWrite(
-    // absolute path to file
-    const char* fpath,
-    // pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
-    double** pVertices,
-    // pointer to list of face sizes (number of vertices in each face) stored as [a,b,c,d,e,f,g,...]
-    unsigned int** pFaceSizes,
-    // pointer to list of face-vertex indices stored as [ijkl,ijk,ijkl,ijklmn,ijk,...]
-    unsigned int** pFaceVertexIndices,
-    // number of vertices in "pVertices"
-    unsigned int* numVertices,
-    // number of faces
-    unsigned int* numFaces
-)
+	// absolute path to file
+	const char* fpath,
+	// pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
+	double** pVertices,
+	// pointer to list of face sizes (number of vertices in each face) stored as [a,b,c,d,e,f,g,...]
+	unsigned int** pFaceSizes,
+	// pointer to list of face-vertex indices stored as [ijkl,ijk,ijkl,ijklmn,ijk,...]
+	unsigned int** pFaceVertexIndices,
+	// number of vertices in "pVertices"
+	unsigned int* numVertices,
+	// number of faces
+	unsigned int* numFaces)
 {
-    
+	// TODO
 }
 
 #endif // #if defined (_WIN32)

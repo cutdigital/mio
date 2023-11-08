@@ -435,5 +435,102 @@ int main()
         numFaces = 0;
     }
 
+    ///////////////////////////////////////////////////////////////////////////////
+	// STL files
+	///////////////////////////////////////////////////////////////////////////////
+
+	{ // mioReadSTL (only vertices and faces)
+
+		mioReadSTL(DATA_DIR "/cube.stl",
+				   &pVertices,
+                    &pNormals,
+				   &numVertices);
+
+		ASSERT(pVertices != NULL);
+		ASSERT(pNormals != NULL);
+		ASSERT(numVertices == 36);
+
+        // NOTE: number of faces (or normals) is "numVertices/3" since STL file only stl (disjoint) triangles
+
+		mioWriteSTL("cube-out.stl",
+					pVertices,
+					pNormals,
+					numVertices);
+
+		if(pVertices != NULL)
+		{
+			free(pVertices);
+			pVertices = NULL;
+		}
+
+		if(pNormals != NULL)
+		{
+			free(pNormals);
+			pNormals = NULL;
+		}
+
+		numVertices = 0;
+	}
+
+    ///////////////////////////////////////////////////////////////////////////////
+	// PLY files
+	///////////////////////////////////////////////////////////////////////////////
+
+	{ // mioReadPLY (only vertices and faces)
+
+		mioReadPLY(DATA_DIR "/cube.ply",
+				   &pVertices,
+				   &pNormals,
+				   &pTexCoords,
+				   &pFaceSizes,
+				   &pFaceVertexIndices,
+				   &pFaceVertexTexCoordIndices,
+				   &pFaceVertexNormalIndices,
+				   &numVertices,
+				   &numNormals,
+				   &numTexCoords,
+				   &numFaces);
+
+		ASSERT(pVertices != NULL);
+		ASSERT(pFaceSizes != NULL);
+		ASSERT(pFaceVertexIndices != NULL);
+		ASSERT(numVertices == 8);
+		ASSERT(numFaces == 12);
+
+		mioWritePLY("cube-out.ply",
+					pVertices,
+					pNormals,
+					pTexCoords,
+					pFaceSizes,
+					pFaceVertexIndices,
+					pFaceVertexTexCoordIndices,
+					pFaceVertexNormalIndices,
+					numVertices,
+					numNormals,
+					numTexCoords,
+					numFaces);
+
+		if(pVertices != NULL)
+		{
+			free(pVertices);
+			pVertices = NULL;
+		}
+
+		if(pFaceSizes != NULL)
+		{
+			free(pFaceSizes);
+			pFaceSizes = NULL;
+		}
+
+		if(pFaceVertexIndices != NULL)
+		{
+			free(pFaceVertexIndices);
+			pFaceVertexIndices = NULL;
+		}
+
+		numVertices = 0;
+		numFaces = 0;
+	}
+
     return 0;
 }

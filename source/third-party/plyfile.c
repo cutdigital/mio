@@ -36,7 +36,7 @@ WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <ply.h>
+#include <mio/third-party/ply.h>
 
 char *type_names[] = {
 "invalid",

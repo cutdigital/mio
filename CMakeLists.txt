@@ -24,9 +24,9 @@ add_library(mio STATIC
 target_include_directories(mio PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if(PROJECT_IS_TOP_LEVEL)
-    add_executable(mio-test-app ${CMAKE_CURRENT_SOURCE_DIR}/app/main.c)
+    add_executable(example ${CMAKE_CURRENT_SOURCE_DIR}/app/main.c)
 
-    target_include_directories(mio-test-app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-    target_link_libraries(mio-test-app PRIVATE mio)
-    target_compile_definitions(mio-test-app PRIVATE -DDATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/app/data")
+    target_include_directories(example PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+    target_link_libraries(example PRIVATE mio)
+    target_compile_definitions(example PRIVATE -DDATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/app/data")
 endif()

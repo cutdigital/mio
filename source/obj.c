@@ -1,3 +1,32 @@
+/***************************************************************************
+ *
+ *  Copyright (C) 2023 CutDigital Enterprise Ltd
+ *  Licensed under the GNU GPL License, Version 3.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      https://www.gnu.org/licenses/gpl-3.0.html.
+ *
+ *  For your convenience, a copy of the License has been included in this
+ *  repository.
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ * obj.c
+ *
+ * \brief:
+ *  TODO: ...
+ *
+ * Author(s):
+ *
+ *    Floyd M. Chitalu    CutDigital Enterprise Ltd.
+ *
+ **************************************************************************/
+
 #include "mio/obj.h"
 
 #include <assert.h>
@@ -143,8 +172,8 @@ void mioReadOBJ(
 
 		while((nread = getline(&lineBuf, &lineBufLen, file)) != (((size_t)0) - 1) /*-1*/)
 		{ // each iteration will parse a line in the file
-			printf("line : ");
-			printf(lineBuf);
+			//printf("line : ");
+			//printf(lineBuf);
 
 			lineBuf[strcspn(lineBuf, "\r\n")] = '\0'; // strip newline and carriage return
 
@@ -192,7 +221,7 @@ void mioReadOBJ(
 			else
 			{
 				assert(cmdType == UNKNOWN);
-				fprintf(stderr, "note: skipping unrecognised command in line '%s'\n", lineBuf);
+				//fprintf(stderr, "note: skipping unrecognised command in line '%s'\n", lineBuf);
 				continue; // ... to next lineBuf
 			}
 
@@ -325,11 +354,6 @@ void mioReadOBJ(
 
 						if(tokenLen == 0)
 						{
-							if(buf != NULL)
-							{
-								free(buf);
-								buf = NULL;
-							}
 							break; // done
 						}
 

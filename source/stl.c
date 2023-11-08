@@ -1,3 +1,32 @@
+/***************************************************************************
+ *
+ *  Copyright (C) 2023 CutDigital Enterprise Ltd
+ *  Licensed under the GNU GPL License, Version 3.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      https://www.gnu.org/licenses/gpl-3.0.html.
+ *
+ *  For your convenience, a copy of the License has been included in this
+ *  repository.
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ * stl.c
+ *
+ * \brief:
+ *  TODO: ...
+ *
+ * Author(s):
+ *
+ *    Floyd M. Chitalu    CutDigital Enterprise Ltd.
+ *
+ **************************************************************************/
+
 #include "mio/stl.h"
 
 #include <assert.h>
@@ -24,16 +53,11 @@ void mioReadSTL(
 	const char* fpath,
 	// pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
 	double** pVertices,
-	// pointer to list of offsets into "pVertices" stored as list of integers [i,j,k,...]
-	// each entry is an offset into pVertices, where the vertices of a particular mesh/solid start
-	double** pVertexOffsets,
 	// pointer to list of normal coordinates associated with each face stored as [xyz,xyz,xyz,...]
 	// NOTE: the number of normals is V * 3, where V is the number of vertices in "pVertices"
 	double** pNormals,
 	// number of vertices (which can be used to deduce the number of vertices)
-	unsigned int* numVertices,
-	// number of offset corresponding to number of solids in file
-	unsigned int* numOffsets)
+	unsigned int* numVertices)
 {
 	fprintf(stdout, "read .stl file: %s\n", fpath);
 
@@ -76,15 +100,15 @@ void mioReadSTL(
 		int nVertices = 0; // number of vertex coordinates found in file
 		int nNormals = 0;
 		int verticesCounter = 0;
-		int solidCommandCounter = 0;
+		//int solidCommandCounter = 0;
 
 		// number of characters read on a lineBuf
 		size_t nread = 0;
 
 		while((nread = getline(&lineBuf, &lineBufLen, file)) != (((size_t)0) - 1) /*-1*/)
 		{ // each iteration will parse a line in the file
-			printf("line : ");
-			printf(lineBuf);
+			//printf("line : ");
+			//printf(lineBuf);
 
 			lineBuf[strcspn(lineBuf, "\r\n")] = '\0'; // strip newline and carriage return
 
@@ -151,16 +175,15 @@ void mioReadSTL(
 				if(passIterator == 1)
 				{
 					// store offset
-					pVertexOffsets[solidCommandCounter] = nVertices; // current number of vertices parsed
+					//pVertexOffsets[solidCommandCounter] = nVertices; // current number of vertices parsed
 				}
 
-				solidCommandCounter += 1;
+				//solidCommandCounter += 1;
 			}
 			break;
-			case FACET_NORMAL: 
-			{
-				const int normalId = nNormals++; // incremental vertex-normal count in file	
-					
+			case FACET_NORMAL: {
+				const int normalId = nNormals++; // incremental vertex-normal count in file
+
 				if(passIterator == 1)
 				{
 
@@ -168,7 +191,7 @@ void mioReadSTL(
 					double y = 0.0;
 					double z = 0.0;
 
-					nread = sscanf(lineBuf + 2, "%lf %lf %lf", &x, &y, &z);
+					nread = sscanf(lineBuf + strlen("facet normal"), "%lf %lf %lf", &x, &y, &z);
 
 					(*pNormals)[normalId * 3 + 0] = x;
 					(*pNormals)[normalId * 3 + 1] = y;
@@ -176,12 +199,10 @@ void mioReadSTL(
 
 					if(nread != 3)
 					{
-						fprintf(
-							stderr, "error: have %zu components for vn%d\n", nread, normalId);
+						fprintf(stderr, "error: have %zu components for vn%d\n", nread, normalId);
 						abort();
 					}
 				}
-				
 			}
 			break;
 			case OUTER_LOOP: {
@@ -197,7 +218,7 @@ void mioReadSTL(
 					double y = 0.0;
 					double z = 0.0;
 
-					nread = sscanf(lineBuf + 2, "%lf %lf %lf", &x, &y, &z);
+					nread = sscanf(lineBuf + strlen("vertex"), "%lf %lf %lf", &x, &y, &z);
 
 					(*pVertices)[vertexId * 3 + 0] = x;
 					(*pVertices)[vertexId * 3 + 1] = y;
@@ -241,7 +262,7 @@ void mioReadSTL(
 				// allocate user pointers
 				*pVertices = (double*)malloc(nVertices * sizeof(double) * 3);
 				*pNormals = (double*)malloc(nNormals * sizeof(double) * 3);
-				*pVertexOffsets = (unsigned int*)malloc(solidCommandCounter * sizeof(unsigned int));
+				//*pVertexOffsets = (unsigned int*)malloc(solidCommandCounter * sizeof(unsigned int));
 			}
 
 			*numVertices = nVertices;
@@ -275,21 +296,16 @@ void mioReadSTL(
 }
 
 void mioWriteSTL(
-    // absolute path to file
+	// absolute path to file
 	const char* const fpath,
-    // pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
+	// pointer to list of vertex coordinates stored as [xyz,xyz,xyz,...]
 	const double* const pVertices,
-    // pointer to list of offsets into "pVertices" stored as list of integers [i,j,k,...]
-    // each entry is an offset into pVertices, where the vertices of a particular mesh/solid start
-	const double* const pVertexOffsets,
-    // pointer to list of normal coordinates associated with each face stored as [xyz,xyz,xyz,...]
-    // NOTE: the number of normals is V * 3, where V is the number of vertices in "pVertices"
+	// pointer to list of normal coordinates associated with each face stored as [xyz,xyz,xyz,...]
+	// NOTE: the number of normals is V * 3, where V is the number of vertices in "pVertices"
 	const double* const pNormals,
-    // number of triangles (which can be used to deduce the number of vertices) 
-    const unsigned int numVertices,
-	// number of offset corresponding to number of solids in file
-	const unsigned int numOffsets)
-{ 
+	// number of vertices (which can be used to deduce the number of triangles)
+	const unsigned int numVertices)
+{
 	fprintf(stdout, "write .obj file: %s\n", fpath);
 
 	FILE* file = fopen(fpath, "w"); // open our file
@@ -300,58 +316,42 @@ void mioWriteSTL(
 		return; // exit(1);
 	}
 
-	printf("solids: %d\n");
 	printf("vertices %u\n", numVertices);
 
-	// for each solid
-	for(unsigned int i = 0; i < numOffsets; ++i)
-	{
-		fprintf(file, "solid surface%d\n", i);
+	fprintf(file, "solid Unnamed\n");
 
-		const unsigned int currentSolidVertexOffset = pVertexOffsets[i];
-		const bool isLastSolid = (i == (numOffsets - 1));
-		unsigned int nextSolidVertexOffset = 0XDEADBEEF;
-		if(!isLastSolid)
+	// for each vertex
+	for(unsigned int j = 0u; j < (unsigned int)numVertices; ++j)
+	{
+		if((j % 3) == 0) // every three vertices correspond to a triangle/normal
 		{
-			nextSolidVertexOffset = pVertexOffsets[i + 1];
+			const unsigned int n = j / 3u; // normal index
+			fprintf(file,
+					"facet normal %f %f %f\n",
+					pNormals[n * 3u + 0u],
+					pNormals[n * 3u + 1u],
+					pNormals[n * 3u + 2u]);
+
+			fprintf(file, "outer loop\n"); // mark start of triangle
 		}
 
-		// for each vertex
-		for(unsigned int j = 0u; j < (unsigned int)numVertices; ++j)
+		const double x = pVertices[j * 3u + 0u];
+		const double y = pVertices[j * 3u + 1u];
+		const double z = pVertices[j * 3u + 2u];
+
+		fprintf(file, "vertex  %f %f %f\n", x, y, z);
+
+		if(((j + 1) % 3) == 0) // last vertex of triangle
 		{
-			if ((j%3) == 0) // every three vertices correspond to a triangle/normal
+			fprintf(file, "endloop\nendfacet\n"); // mark end of triangle
+
+			if(j == numVertices - 1)
 			{
-				const unsigned int n = j / 3u; // normal index
-				fprintf(file,
-						"facet normal %f %f %f\n",
-						pNormals[n * 3u + 0u],
-						pNormals[n * 3u + 1u],
-						pNormals[n * 3u + 2u]);
-
-				fprintf(file, "outer loop\n"); // mark start of triangle
-			}
-
-			const double x = pVertices[j * 3u + 0u];
-			const double y = pVertices[j * 3u + 1u];
-			const double z = pVertices[j * 3u + 2u];
-
-			fprintf(file, "vertex  %f %f %f\n", x, y, z);
-
-			if(((j+1) % 3) == 0) // last vertex of triangle
-			{
-				fprintf(file, "endloop\nendfacet\n"); // mark end of triangle
-
-				if((isLastSolid && j == numVertices-1) || // last vertex in file
-				   (!isLastSolid && (j + 1) == nextSolidVertexOffset) // last vertex in solid
-					)
-				{
-					fprintf(file, "endsolid\n"); // mark end of solid
-				}
+				fprintf(file, "endsolid\n"); // mark end of solid
 			}
 		}
 	}
 
-	
 	fclose(file);
 
 	printf("done.\n");

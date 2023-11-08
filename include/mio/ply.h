@@ -1,24 +1,31 @@
-//
-//  CUTDIGITAL ENTERPRISE LTD PROPRIETARY INFORMATION
-//
-//  This software is supplied under the terms of a separately provided license agreement
-//  with CutDigital Enterprise Ltd and may not be copied or exploited except in 
-//  accordance with the terms of that agreement.
-//
-//  THIS SOFTWARE IS PROVIDED BY CUTDIGITAL ENTERPRISE LTD "AS IS" AND ANY
-//  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-//  PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL CUTDIGITAL ENTERPRISE LTD BE LIABLE 
-//  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-//  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-//  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
-//  BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-//  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
-//  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
-//  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-//  Copyright (c) 2023 CutDigital Enterprise Ltd. All rights reserved in all media.
-//
+/***************************************************************************
+ *
+ *  Copyright (C) 2023 CutDigital Enterprise Ltd
+ *  Licensed under the GNU GPL License, Version 3.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      https://www.gnu.org/licenses/gpl-3.0.html.
+ *
+ *  For your convenience, a copy of the License has been included in this
+ *  repository.
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ * ply.h
+ *
+ * \brief:
+ *  TODO: ...
+ *
+ * Author(s):
+ *
+ *    Floyd M. Chitalu    CutDigital Enterprise Ltd.
+ *
+ **************************************************************************/
 
 #ifndef __MIO_PLY_H__
 #define __MIO_PLY_H__  1
@@ -30,10 +37,17 @@ extern "C" {
 /*
     Funcion to read in a .ply file that stores a single 3D mesh object (in ASCII
     format). The pointer parameters will be allocated inside this function and must
-    be freed by caller. The function only handles polygonal faces, so commands like
-    "vp" command (which is used to specify control points of the surface or curve)
-    are ignored if encountered in file.
+    be freed by caller. 
 
+    NOTE: Current implementation only reads in the vertices and faces. Thus only 
+    the following variables will be defined when the function returns:
+    - pVertices
+    - pFaceSizes
+    - pFaceVertexIndices
+    - numVertices
+    - numFaces
+
+    Vertices are read in as floats!
 */
 void mioReadPLY(
     // absolute path to file
@@ -64,6 +78,16 @@ void mioReadPLY(
 /*
     Funcion to write out a .ply file that stores a single 3D mesh object (in ASCII
     format).
+
+    NOTE: Current implementation only writes out the vertices and faces. Thus only 
+    the following variables will be used.
+    - pVertices
+    - pFaceSizes
+    - pFaceVertexIndices
+    - numVertices
+    - numFaces
+
+    Vertices are written out as floats!
 */
 void mioWritePLY(
     // absolute path to file
