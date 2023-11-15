@@ -102,13 +102,13 @@ void mioWrite(
     unsigned int* numFaces
 );
 
-// Frees the memory associated with the given pointer and sets the pointer to NULL.
+// Frees the memory associated with the given pointer 
 // NOTE: pMemPtr must be the address of a pointer that was internally allocated by "mio"
-void mioFree(void** pMemPtr);
+void mioFree(void* pMemPtr);
 
 // Frees the memory of the given mesh pointers and sets the pointers to NULL.
 // NOTE: The pointers must have been internally allocated by "mio"
-void mioFreeMesh(MioMesh** pMemPtr);
+void mioFreeMesh(MioMesh* pMemPtr);
 
 #ifdef __cplusplus
 } // extern "C"

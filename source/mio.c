@@ -128,34 +128,37 @@ void mioWrite(
 	// TODO
 }
 
-void mioFree(void** pMemPtr)
+void mioFree(void* pMemPtr)
 {
-	assert(pMemPtr != NULL);
-
-	if((*pMemPtr) != NULL)
+	if(pMemPtr != NULL)
 	{
-		free((*pMemPtr));
-		(*pMemPtr) = NULL;
+		free(pMemPtr);
 	}
 }
 
-void mioFreeMesh(MioMesh** pMemPtr)
+void mioFreeMesh(MioMesh* pMeshPtr)
 {
-	assert(pMemPtr != NULL);
+	assert(pMeshPtr != NULL);
 
-	mioFree((void**)&((*pMemPtr)->pVertices));
-	mioFree((void**)&((*pMemPtr)->pNormals));
-	mioFree((void**)&((*pMemPtr)->pTexCoords));
+	mioFree(pMeshPtr->pVertices);
+	pMeshPtr->pVertices = NULL;
+	mioFree(pMeshPtr->pNormals);
+	pMeshPtr->pNormals = NULL;
+	mioFree(pMeshPtr->pTexCoords);
+	pMeshPtr->pTexCoords = NULL;
+	mioFree(pMeshPtr->pFaceSizes);
+	pMeshPtr->pFaceSizes = NULL;
+	mioFree(pMeshPtr->pFaceVertexIndices);
+	pMeshPtr->pFaceVertexIndices = NULL;
+	mioFree(pMeshPtr->pFaceVertexTexCoordIndices);
+	pMeshPtr->pFaceVertexTexCoordIndices = NULL;
+	mioFree(pMeshPtr->pFaceVertexNormalIndices);
+	pMeshPtr->pFaceVertexNormalIndices = NULL;
 
-	mioFree((void**)&((*pMemPtr)->pFaceSizes));
-	mioFree((void**)&((*pMemPtr)->pFaceVertexIndices));
-	mioFree((void**)&((*pMemPtr)->pFaceVertexTexCoordIndices));
-	mioFree((void**)&((*pMemPtr)->pFaceVertexNormalIndices));
-
-	(*pMemPtr)->numVertices = 0;
-	(*pMemPtr)->numNormals = 0;
-	(*pMemPtr)->numTexCoords = 0;
-	(*pMemPtr)->numFaces = 0;
+	pMeshPtr->numVertices = 0;
+	pMeshPtr->numNormals = 0;
+	pMeshPtr->numTexCoords = 0;
+	pMeshPtr->numFaces = 0;
 }
 
 #endif // #if defined (_WIN32)

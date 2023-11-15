@@ -4,293 +4,446 @@
 #include <stdlib.h>
 
 #define STR(x) #x
-#define ASSERT(x)                                                                                                     \
-    if (!(x)) {                                                                                                       \
-        printf("Assertion failed: (%s), function %s, file %s, line %d.\n", STR(x), __FUNCTION__, __FILE__, __LINE__); \
-        abort();                                                                                                      \
-    }
+#define ASSERT(x)                                                                                  \
+	if(!(x))                                                                                       \
+	{                                                                                              \
+		printf("Assertion failed: (%s), function %s, file %s, line %d.\n",                         \
+			   STR(x),                                                                             \
+			   __FUNCTION__,                                                                       \
+			   __FILE__,                                                                           \
+			   __LINE__);                                                                          \
+		abort();                                                                                   \
+	}
 
 int main()
 {
-    double* pVertices = NULL;
-    double* pNormals = NULL;
-    double* pTexCoords = NULL;
-    unsigned int* pFaceSizes = NULL;
-    unsigned int* pFaceVertexIndices = NULL;
-    unsigned int* pFaceVertexTexCoordIndices = NULL;
-    unsigned int* pFaceVertexNormalIndices = NULL;
-    unsigned int numVertices = 0;
-    unsigned int numNormals = 0;
-    unsigned int numTexCoords = 0;
-    unsigned int numFaces = 0;
+	double* pVertices = NULL;
+	double* pNormals = NULL;
+	double* pTexCoords = NULL;
+	unsigned int* pFaceSizes = NULL;
+	unsigned int* pFaceVertexIndices = NULL;
+	unsigned int* pFaceVertexTexCoordIndices = NULL;
+	unsigned int* pFaceVertexNormalIndices = NULL;
+	unsigned int numVertices = 0;
+	unsigned int numNormals = 0;
+	unsigned int numTexCoords = 0;
+	unsigned int numFaces = 0;
 
-    ///////////////////////////////////////////////////////////////////////////////
-    // OBJ files 
-    ///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
+	// OBJ files
+	///////////////////////////////////////////////////////////////////////////////
 
-    { // mioReadOBJ (only vertices and faces)
+	{ // mioReadOBJ (only vertices and faces)
 
-        mioReadOBJ(DATA_DIR "/cube.obj", &pVertices, &pNormals,
-            &pTexCoords, &pFaceSizes, &pFaceVertexIndices, &pFaceVertexTexCoordIndices,
-            &pFaceVertexNormalIndices, &numVertices, &numNormals,
-            &numTexCoords, &numFaces);
+		mioReadOBJ(DATA_DIR "/cube.obj",
+				   &pVertices,
+				   &pNormals,
+				   &pTexCoords,
+				   &pFaceSizes,
+				   &pFaceVertexIndices,
+				   &pFaceVertexTexCoordIndices,
+				   &pFaceVertexNormalIndices,
+				   &numVertices,
+				   &numNormals,
+				   &numTexCoords,
+				   &numFaces);
 
-        ASSERT(pVertices != NULL);
-        ASSERT(pFaceSizes != NULL);
-        ASSERT(pFaceVertexIndices != NULL);
-        ASSERT(numVertices == 8);
-        ASSERT(numFaces == 12);
+		ASSERT(pVertices != NULL);
+		ASSERT(pFaceSizes != NULL);
+		ASSERT(pFaceVertexIndices != NULL);
+		ASSERT(numVertices == 8);
+		ASSERT(numFaces == 12);
 
-        mioWriteOBJ("cube-out.obj", pVertices, pNormals,
-            pTexCoords, pFaceSizes, pFaceVertexIndices, pFaceVertexTexCoordIndices,
-            pFaceVertexNormalIndices, numVertices, numNormals,
-            numTexCoords, numFaces);
+		mioWriteOBJ("cube-out.obj",
+					pVertices,
+					pNormals,
+					pTexCoords,
+					pFaceSizes,
+					pFaceVertexIndices,
+					pFaceVertexTexCoordIndices,
+					pFaceVertexNormalIndices,
+					numVertices,
+					numNormals,
+					numTexCoords,
+					numFaces);
 
-        mioFree(&pVertices);
-        mioFree(&pNormals);
-        mioFree(&pTexCoords);
-        mioFree(&pFaceSizes);
-        mioFree(&pFaceVertexIndices);
-        mioFree(&pFaceVertexTexCoordIndices);
-        mioFree(&pFaceVertexNormalIndices);
-            
-        numVertices = 0;
-        numNormals = 0;
-        numTexCoords = 0;
-        numFaces = 0;
-    }
+		mioFree(pVertices);
+		pVertices = NULL;
+		mioFree(pNormals);
+		pNormals = NULL;
+		mioFree(pTexCoords);
+		pTexCoords = NULL;
+		mioFree(pFaceSizes);
+		pFaceSizes = NULL;
+		mioFree(pFaceVertexIndices);
+		pFaceVertexIndices = NULL;
+		mioFree(pFaceVertexTexCoordIndices);
+		pFaceVertexTexCoordIndices = NULL;
+		mioFree(pFaceVertexNormalIndices);
+		pFaceVertexNormalIndices = NULL;
 
-    { // mioReadOBJ (vertices, texcoords and faces)
+		numVertices = 0;
+		numNormals = 0;
+		numTexCoords = 0;
+		numFaces = 0;
+	}
 
-        mioReadOBJ(DATA_DIR "/cube-uv.obj", &pVertices, &pNormals,
-            &pTexCoords, &pFaceSizes, &pFaceVertexIndices, &pFaceVertexTexCoordIndices,
-            &pFaceVertexNormalIndices, &numVertices, &numNormals,
-            &numTexCoords, &numFaces);
+	{ // mioReadOBJ (vertices, texcoords and faces)
 
-        ASSERT(pVertices != NULL);
-        ASSERT(pTexCoords != NULL);
-        ASSERT(pFaceSizes != NULL);
-        ASSERT(pFaceVertexIndices != NULL);
-        ASSERT(pFaceVertexTexCoordIndices != NULL);
-        ASSERT(numVertices == 8);
-        ASSERT(numTexCoords == 14);
-        ASSERT(numFaces == 12);
+		mioReadOBJ(DATA_DIR "/cube-uv.obj",
+				   &pVertices,
+				   &pNormals,
+				   &pTexCoords,
+				   &pFaceSizes,
+				   &pFaceVertexIndices,
+				   &pFaceVertexTexCoordIndices,
+				   &pFaceVertexNormalIndices,
+				   &numVertices,
+				   &numNormals,
+				   &numTexCoords,
+				   &numFaces);
 
-        mioWriteOBJ("cube-uv-out.obj", pVertices, pNormals,
-            pTexCoords, pFaceSizes, pFaceVertexIndices, pFaceVertexTexCoordIndices,
-            pFaceVertexNormalIndices, numVertices, numNormals,
-            numTexCoords, numFaces);
+		ASSERT(pVertices != NULL);
+		ASSERT(pTexCoords != NULL);
+		ASSERT(pFaceSizes != NULL);
+		ASSERT(pFaceVertexIndices != NULL);
+		ASSERT(pFaceVertexTexCoordIndices != NULL);
+		ASSERT(numVertices == 8);
+		ASSERT(numTexCoords == 14);
+		ASSERT(numFaces == 12);
 
-        mioFree(&pVertices);
-        mioFree(&pNormals);
-        mioFree(&pTexCoords);
-        mioFree(&pFaceSizes);
-        mioFree(&pFaceVertexIndices);
-        mioFree(&pFaceVertexTexCoordIndices);
-        mioFree(&pFaceVertexNormalIndices);
+		mioWriteOBJ("cube-uv-out.obj",
+					pVertices,
+					pNormals,
+					pTexCoords,
+					pFaceSizes,
+					pFaceVertexIndices,
+					pFaceVertexTexCoordIndices,
+					pFaceVertexNormalIndices,
+					numVertices,
+					numNormals,
+					numTexCoords,
+					numFaces);
 
-        numVertices = 0;
-        numNormals = 0;
-        numTexCoords = 0;
-        numFaces = 0;
-    }
+		mioFree(pVertices);
+		pVertices = NULL;
+		mioFree(pNormals);
+		pNormals = NULL;
+		mioFree(pTexCoords);
+		pTexCoords = NULL;
+		mioFree(pFaceSizes);
+		pFaceSizes = NULL;
+		mioFree(pFaceVertexIndices);
+		pFaceVertexIndices = NULL;
+		mioFree(pFaceVertexTexCoordIndices);
+		pFaceVertexTexCoordIndices = NULL;
+		mioFree(pFaceVertexNormalIndices);
+		pFaceVertexNormalIndices = NULL;
 
-    { // mioReadOBJ (vertices, normals and faces)
+		numVertices = 0;
+		numNormals = 0;
+		numTexCoords = 0;
+		numFaces = 0;
+	}
 
-        mioReadOBJ(DATA_DIR "/cube-normals.obj", &pVertices, &pNormals,
-            &pTexCoords, &pFaceSizes, &pFaceVertexIndices, &pFaceVertexTexCoordIndices,
-            &pFaceVertexNormalIndices, &numVertices, &numNormals,
-            &numTexCoords, &numFaces);
+	{ // mioReadOBJ (vertices, normals and faces)
 
-        ASSERT(pVertices != NULL);
-        ASSERT(pNormals != NULL);
-        ASSERT(pFaceSizes != NULL);
-        ASSERT(pFaceVertexIndices != NULL);
-        ASSERT(pFaceVertexNormalIndices != NULL);
-        ASSERT(numVertices == 8);
-        ASSERT(numNormals == 6);
-        ASSERT(numFaces == 12);
+		mioReadOBJ(DATA_DIR "/cube-normals.obj",
+				   &pVertices,
+				   &pNormals,
+				   &pTexCoords,
+				   &pFaceSizes,
+				   &pFaceVertexIndices,
+				   &pFaceVertexTexCoordIndices,
+				   &pFaceVertexNormalIndices,
+				   &numVertices,
+				   &numNormals,
+				   &numTexCoords,
+				   &numFaces);
 
-        mioWriteOBJ("cube-normals-out.obj", pVertices, pNormals,
-            pTexCoords, pFaceSizes, pFaceVertexIndices, pFaceVertexTexCoordIndices,
-            pFaceVertexNormalIndices, numVertices, numNormals,
-            numTexCoords, numFaces);
+		ASSERT(pVertices != NULL);
+		ASSERT(pNormals != NULL);
+		ASSERT(pFaceSizes != NULL);
+		ASSERT(pFaceVertexIndices != NULL);
+		ASSERT(pFaceVertexNormalIndices != NULL);
+		ASSERT(numVertices == 8);
+		ASSERT(numNormals == 6);
+		ASSERT(numFaces == 12);
 
-        mioFree(&pVertices);
-        mioFree(&pNormals);
-        mioFree(&pTexCoords);
-        mioFree(&pFaceSizes);
-        mioFree(&pFaceVertexIndices);
-        mioFree(&pFaceVertexTexCoordIndices);
-        mioFree(&pFaceVertexNormalIndices);
+		mioWriteOBJ("cube-normals-out.obj",
+					pVertices,
+					pNormals,
+					pTexCoords,
+					pFaceSizes,
+					pFaceVertexIndices,
+					pFaceVertexTexCoordIndices,
+					pFaceVertexNormalIndices,
+					numVertices,
+					numNormals,
+					numTexCoords,
+					numFaces);
 
-        numVertices = 0;
-        numNormals = 0;
-        numTexCoords = 0;
-        numFaces = 0;
-    }
+		mioFree(pVertices);
+		pVertices = NULL;
+		mioFree(pNormals);
+		pNormals = NULL;
+		mioFree(pTexCoords);
+		pTexCoords = NULL;
+		mioFree(pFaceSizes);
+		pFaceSizes = NULL;
+		mioFree(pFaceVertexIndices);
+		pFaceVertexIndices = NULL;
+		mioFree(pFaceVertexTexCoordIndices);
+		pFaceVertexTexCoordIndices = NULL;
+		mioFree(pFaceVertexNormalIndices);
+		pFaceVertexNormalIndices = NULL;
 
-    { // mioReadOBJ (vertices, texture coordinates, normals and faces)
+		numVertices = 0;
+		numNormals = 0;
+		numTexCoords = 0;
+		numFaces = 0;
+	}
 
-        mioReadOBJ(DATA_DIR "/cube-normals-uv.obj", &pVertices, &pNormals,
-            &pTexCoords, &pFaceSizes, &pFaceVertexIndices, &pFaceVertexTexCoordIndices,
-            &pFaceVertexNormalIndices, &numVertices, &numNormals,
-            &numTexCoords, &numFaces);
+	{ // mioReadOBJ (vertices, texture coordinates, normals and faces)
 
-        ASSERT(pVertices != NULL);
-        ASSERT(pNormals != NULL);
-        ASSERT(pTexCoords != NULL);
-        ASSERT(pFaceSizes != NULL);
-        ASSERT(pFaceVertexIndices != NULL);
-        ASSERT(pFaceVertexTexCoordIndices != NULL);
-        ASSERT(pFaceVertexNormalIndices != NULL);
-        ASSERT(numVertices == 8);
-        ASSERT(numNormals == 6);
-        ASSERT(numTexCoords == 14);
-        ASSERT(numFaces == 12);
+		mioReadOBJ(DATA_DIR "/cube-normals-uv.obj",
+				   &pVertices,
+				   &pNormals,
+				   &pTexCoords,
+				   &pFaceSizes,
+				   &pFaceVertexIndices,
+				   &pFaceVertexTexCoordIndices,
+				   &pFaceVertexNormalIndices,
+				   &numVertices,
+				   &numNormals,
+				   &numTexCoords,
+				   &numFaces);
 
-        mioWriteOBJ("cube-normals-uv-out.obj", pVertices, pNormals,
-            pTexCoords, pFaceSizes, pFaceVertexIndices, pFaceVertexTexCoordIndices,
-            pFaceVertexNormalIndices, numVertices, numNormals,
-            numTexCoords, numFaces);
+		ASSERT(pVertices != NULL);
+		ASSERT(pNormals != NULL);
+		ASSERT(pTexCoords != NULL);
+		ASSERT(pFaceSizes != NULL);
+		ASSERT(pFaceVertexIndices != NULL);
+		ASSERT(pFaceVertexTexCoordIndices != NULL);
+		ASSERT(pFaceVertexNormalIndices != NULL);
+		ASSERT(numVertices == 8);
+		ASSERT(numNormals == 6);
+		ASSERT(numTexCoords == 14);
+		ASSERT(numFaces == 12);
 
-        mioFree(&pVertices);
-        mioFree(&pNormals);
-        mioFree(&pTexCoords);
-        mioFree(&pFaceSizes);
-        mioFree(&pFaceVertexIndices);
-        mioFree(&pFaceVertexTexCoordIndices);
-        mioFree(&pFaceVertexNormalIndices);
+		mioWriteOBJ("cube-normals-uv-out.obj",
+					pVertices,
+					pNormals,
+					pTexCoords,
+					pFaceSizes,
+					pFaceVertexIndices,
+					pFaceVertexTexCoordIndices,
+					pFaceVertexNormalIndices,
+					numVertices,
+					numNormals,
+					numTexCoords,
+					numFaces);
 
-        numVertices = 0;
-        numNormals = 0;
-        numTexCoords = 0;
-        numFaces = 0;
-    }
+		mioFree(pVertices);
+		pVertices = NULL;
+		mioFree(pNormals);
+		pNormals = NULL;
+		mioFree(pTexCoords);
+		pTexCoords = NULL;
+		mioFree(pFaceSizes);
+		pFaceSizes = NULL;
+		mioFree(pFaceVertexIndices);
+		pFaceVertexIndices = NULL;
+		mioFree(pFaceVertexTexCoordIndices);
+		pFaceVertexTexCoordIndices = NULL;
+		mioFree(pFaceVertexNormalIndices);
+		pFaceVertexNormalIndices = NULL;
 
-    { // mioReadOBJ (only vertices and quad-faces)
+		numVertices = 0;
+		numNormals = 0;
+		numTexCoords = 0;
+		numFaces = 0;
+	}
 
-        mioReadOBJ(DATA_DIR "/cube-quads.obj", &pVertices, &pNormals,
-            &pTexCoords, &pFaceSizes, &pFaceVertexIndices, &pFaceVertexTexCoordIndices,
-            &pFaceVertexNormalIndices, &numVertices, &numNormals,
-            &numTexCoords, &numFaces);
+	{ // mioReadOBJ (only vertices and quad-faces)
 
-        ASSERT(pVertices != NULL);
-        ASSERT(pFaceSizes != NULL);
-        ASSERT(pFaceVertexIndices != NULL);
-        ASSERT(numVertices == 8);
-        ASSERT(numFaces == 6);
+		mioReadOBJ(DATA_DIR "/cube-quads.obj",
+				   &pVertices,
+				   &pNormals,
+				   &pTexCoords,
+				   &pFaceSizes,
+				   &pFaceVertexIndices,
+				   &pFaceVertexTexCoordIndices,
+				   &pFaceVertexNormalIndices,
+				   &numVertices,
+				   &numNormals,
+				   &numTexCoords,
+				   &numFaces);
 
-        mioWriteOBJ("cube-quads-out.obj", pVertices, pNormals,
-            pTexCoords, pFaceSizes, pFaceVertexIndices, pFaceVertexTexCoordIndices,
-            pFaceVertexNormalIndices, numVertices, numNormals,
-            numTexCoords, numFaces);
+		ASSERT(pVertices != NULL);
+		ASSERT(pFaceSizes != NULL);
+		ASSERT(pFaceVertexIndices != NULL);
+		ASSERT(numVertices == 8);
+		ASSERT(numFaces == 6);
 
-        mioFree(&pVertices);
-        mioFree(&pNormals);
-        mioFree(&pTexCoords);
-        mioFree(&pFaceSizes);
-        mioFree(&pFaceVertexIndices);
-        mioFree(&pFaceVertexTexCoordIndices);
-        mioFree(&pFaceVertexNormalIndices);
+		mioWriteOBJ("cube-quads-out.obj",
+					pVertices,
+					pNormals,
+					pTexCoords,
+					pFaceSizes,
+					pFaceVertexIndices,
+					pFaceVertexTexCoordIndices,
+					pFaceVertexNormalIndices,
+					numVertices,
+					numNormals,
+					numTexCoords,
+					numFaces);
 
-        numVertices = 0;
-        numNormals = 0;
-        numTexCoords = 0;
-        numFaces = 0;
-    }
+		mioFree(pVertices);
+		pVertices = NULL;
+		mioFree(pNormals);
+		pNormals = NULL;
+		mioFree(pTexCoords);
+		pTexCoords = NULL;
+		mioFree(pFaceSizes);
+		pFaceSizes = NULL;
+		mioFree(pFaceVertexIndices);
+		pFaceVertexIndices = NULL;
+		mioFree(pFaceVertexTexCoordIndices);
+		pFaceVertexTexCoordIndices = NULL;
+		mioFree(pFaceVertexNormalIndices);
+		pFaceVertexNormalIndices = NULL;
 
-    { // mioReadOBJ (vertices, normals and quad-faces)
+		numVertices = 0;
+		numNormals = 0;
+		numTexCoords = 0;
+		numFaces = 0;
+	}
 
-        mioReadOBJ(DATA_DIR "/cube-quads-normals.obj", &pVertices, &pNormals,
-            &pTexCoords, &pFaceSizes, &pFaceVertexIndices, &pFaceVertexTexCoordIndices,
-            &pFaceVertexNormalIndices, &numVertices, &numNormals,
-            &numTexCoords, &numFaces);
+	{ // mioReadOBJ (vertices, normals and quad-faces)
 
-        ASSERT(pVertices != NULL);
-        ASSERT(pNormals != NULL);
-        ASSERT(pFaceSizes != NULL);
-        ASSERT(pFaceVertexIndices != NULL);
-        ASSERT(pFaceVertexNormalIndices != NULL);
-        ASSERT(numVertices == 8);
-        ASSERT(numNormals == 6);
-        ASSERT(numFaces == 6);
+		mioReadOBJ(DATA_DIR "/cube-quads-normals.obj",
+				   &pVertices,
+				   &pNormals,
+				   &pTexCoords,
+				   &pFaceSizes,
+				   &pFaceVertexIndices,
+				   &pFaceVertexTexCoordIndices,
+				   &pFaceVertexNormalIndices,
+				   &numVertices,
+				   &numNormals,
+				   &numTexCoords,
+				   &numFaces);
 
-        mioWriteOBJ("cube-quads-normals-out.obj", pVertices, pNormals,
-            pTexCoords, pFaceSizes, pFaceVertexIndices, pFaceVertexTexCoordIndices,
-            pFaceVertexNormalIndices, numVertices, numNormals,
-            numTexCoords, numFaces);
+		ASSERT(pVertices != NULL);
+		ASSERT(pNormals != NULL);
+		ASSERT(pFaceSizes != NULL);
+		ASSERT(pFaceVertexIndices != NULL);
+		ASSERT(pFaceVertexNormalIndices != NULL);
+		ASSERT(numVertices == 8);
+		ASSERT(numNormals == 6);
+		ASSERT(numFaces == 6);
 
-        mioFree(&pVertices);
-        mioFree(&pNormals);
-        mioFree(&pTexCoords);
-        mioFree(&pFaceSizes);
-        mioFree(&pFaceVertexIndices);
-        mioFree(&pFaceVertexTexCoordIndices);
-        mioFree(&pFaceVertexNormalIndices);
+		mioWriteOBJ("cube-quads-normals-out.obj",
+					pVertices,
+					pNormals,
+					pTexCoords,
+					pFaceSizes,
+					pFaceVertexIndices,
+					pFaceVertexTexCoordIndices,
+					pFaceVertexNormalIndices,
+					numVertices,
+					numNormals,
+					numTexCoords,
+					numFaces);
 
-        numVertices = 0;
-        numNormals = 0;
-        numTexCoords = 0;
-        numFaces = 0;
-    }
+		mioFree(pVertices);
+		pVertices = NULL;
+		mioFree(pNormals);
+		pNormals = NULL;
+		mioFree(pTexCoords);
+		pTexCoords = NULL;
+		mioFree(pFaceSizes);
+		pFaceSizes = NULL;
+		mioFree(pFaceVertexIndices);
+		pFaceVertexIndices = NULL;
+		mioFree(pFaceVertexTexCoordIndices);
+		pFaceVertexTexCoordIndices = NULL;
+		mioFree(pFaceVertexNormalIndices);
+		pFaceVertexNormalIndices = NULL;
 
-    ///////////////////////////////////////////////////////////////////////////////
-    // OFF files 
-    ///////////////////////////////////////////////////////////////////////////////
+		numVertices = 0;
+		numNormals = 0;
+		numTexCoords = 0;
+		numFaces = 0;
+	}
 
-    { // mioReadOFF (only vertices and faces)
+	///////////////////////////////////////////////////////////////////////////////
+	// OFF files
+	///////////////////////////////////////////////////////////////////////////////
 
-        mioReadOFF(DATA_DIR "/cube.off", &pVertices, &pFaceVertexIndices, &pFaceSizes, &numVertices, &numFaces);
+	{ // mioReadOFF (only vertices and faces)
 
-        ASSERT(pVertices != NULL);
-        ASSERT(pFaceSizes != NULL);
-        ASSERT(pFaceVertexIndices != NULL);
-        ASSERT(numVertices == 8);
-        ASSERT(numFaces == 12);
+		mioReadOFF(DATA_DIR "/cube.off",
+				   &pVertices,
+				   &pFaceVertexIndices,
+				   &pFaceSizes,
+				   &numVertices,
+				   &numFaces);
 
-        unsigned int numEdges = 0;
-        unsigned int* pEdgeVertexIndices = NULL;
+		ASSERT(pVertices != NULL);
+		ASSERT(pFaceSizes != NULL);
+		ASSERT(pFaceVertexIndices != NULL);
+		ASSERT(numVertices == 8);
+		ASSERT(numFaces == 12);
 
-        mioWriteOFF("cube-out.off", pVertices, pFaceVertexIndices, pFaceSizes, pEdgeVertexIndices, numVertices, numFaces, numEdges);
+		unsigned int numEdges = 0;
+		unsigned int* pEdgeVertexIndices = NULL;
 
-        mioFree(&pVertices);
-        mioFree(&pFaceVertexIndices);
-        mioFree(&pFaceSizes);
+		mioWriteOFF("cube-out.off",
+					pVertices,
+					pFaceVertexIndices,
+					pFaceSizes,
+					pEdgeVertexIndices,
+					numVertices,
+					numFaces,
+					numEdges);
 
-        numVertices = 0;
-        numFaces = 0;
-    }
+		mioFree(pVertices);
+		pVertices = NULL;
+		mioFree(pFaceSizes);
+		pFaceSizes = NULL;
+		mioFree(pFaceVertexIndices);
+		pFaceVertexIndices = NULL;
 
-    ///////////////////////////////////////////////////////////////////////////////
+		numVertices = 0;
+		numFaces = 0;
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
 	// STL files
 	///////////////////////////////////////////////////////////////////////////////
 
 	{ // mioReadSTL (only vertices and faces)
 
-		mioReadSTL(DATA_DIR "/cube.stl",
-				   &pVertices,
-                &pNormals,
-				   &numVertices);
+		mioReadSTL(DATA_DIR "/cube.stl", &pVertices, &pNormals, &numVertices);
 
 		ASSERT(pVertices != NULL);
 		ASSERT(pNormals != NULL);
 		ASSERT(numVertices == 36);
 
-        // NOTE: number of faces (or normals) is "numVertices/3" since STL file only stl (disjoint) triangles
+		// NOTE: number of faces (or normals) is "numVertices/3" since STL file only stl (disjoint) triangles
 
-		mioWriteSTL("cube-out.stl",
-					pVertices,
-					pNormals,
-					numVertices);
+		mioWriteSTL("cube-out.stl", pVertices, pNormals, numVertices);
 
-		mioFree(&pVertices);
-		mioFree(&pNormals);
-
+		mioFree(pVertices);
+		pVertices = NULL;
+		mioFree(pNormals);
+		pNormals = NULL;
 		numVertices = 0;
 	}
 
-    ///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 	// PLY files
 	///////////////////////////////////////////////////////////////////////////////
 
@@ -328,13 +481,16 @@ int main()
 					numTexCoords,
 					numFaces);
 
-		mioFree(&pVertices);
-		mioFree(&pFaceSizes);
-		mioFree(&pFaceVertexIndices);
+		mioFree(pVertices);
+		pVertices = NULL;
+		mioFree(pFaceSizes);
+		pFaceSizes = NULL;
+		mioFree(pFaceVertexIndices);
+		pFaceVertexIndices = NULL;
 
 		numVertices = 0;
 		numFaces = 0;
 	}
 
-    return 0;
+	return 0;
 }
