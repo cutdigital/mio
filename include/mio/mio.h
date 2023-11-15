@@ -51,6 +51,24 @@ typedef intptr_t ssize_t;
 ssize_t getline(char** lineptr, size_t* n, FILE* stream);
 #endif // #if defined(_WIN32)
 
+// structure for a mesh that is loaded from file using mio functions
+struct MioMesh
+{ 
+	double* pVertices = NULL;
+	double* pNormals = NULL;
+	double* pTexCoords = NULL;
+
+	unsigned int* pFaceSizes = NULL;
+	unsigned int* pFaceVertexIndices = NULL;
+	unsigned int* pFaceVertexTexCoordIndices = NULL;
+	unsigned int* pFaceVertexNormalIndices = NULL;
+	
+    unsigned int numVertices = 0;
+	unsigned int numNormals = 0;
+	unsigned int numTexCoords = 0;
+	unsigned int numFaces = 0;
+};
+
 /*
     Function to read in a mesh file. Supported file formats are .obj and .off
 */
