@@ -54,19 +54,19 @@ ssize_t getline(char** lineptr, size_t* n, FILE* stream);
 // structure for a mesh that is loaded from file using mio functions
 struct MioMesh
 { 
-	double* pVertices = NULL;
-	double* pNormals = NULL;
-	double* pTexCoords = NULL;
+	double* pVertices;
+	double* pNormals;
+	double* pTexCoords;
 
-	unsigned int* pFaceSizes = NULL;
-	unsigned int* pFaceVertexIndices = NULL;
-	unsigned int* pFaceVertexTexCoordIndices = NULL;
-	unsigned int* pFaceVertexNormalIndices = NULL;
+	unsigned int* pFaceSizes;
+	unsigned int* pFaceVertexIndices;
+	unsigned int* pFaceVertexTexCoordIndices;
+	unsigned int* pFaceVertexNormalIndices;
 	
-    unsigned int numVertices = 0;
-	unsigned int numNormals = 0;
-	unsigned int numTexCoords = 0;
-	unsigned int numFaces = 0;
+    unsigned int numVertices;
+	unsigned int numNormals;
+	unsigned int numTexCoords;
+	unsigned int numFaces;
 };
 
 /*
