@@ -29,6 +29,8 @@
 
 #include "mio/mio.h"
 
+#include <assert.h>
+
 #if defined(_WIN32)
 #	include <stdlib.h> // https://stackoverflow.com/questions/44504429/c-write-access-violation
 ssize_t getline(char** lineptr, size_t* n, FILE* stream)
@@ -124,6 +126,17 @@ void mioWrite(
 	unsigned int* numFaces)
 {
 	// TODO
+}
+
+void mioFree(void** pMemPtr)
+{
+	assert(pMemPtr != NULL);
+	
+	if((*pMemPtr) != NULL)
+	{
+		free((*pMemPtr));
+		(*pMemPtr) = NULL;
+	}
 }
 
 #endif // #if defined (_WIN32)

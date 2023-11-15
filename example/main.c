@@ -46,41 +46,14 @@ int main()
             pFaceVertexNormalIndices, numVertices, numNormals,
             numTexCoords, numFaces);
 
-        if (pVertices != NULL) {
-            free(pVertices);
-            pVertices = NULL;
-        }
-
-        if (pNormals != NULL) {
-            free(pNormals);
-            pNormals = NULL;
-        }
-
-        if (pTexCoords != NULL) {
-            free(pTexCoords);
-            pTexCoords = NULL;
-        }
-
-        if (pFaceSizes != NULL) {
-            free(pFaceSizes);
-            pFaceSizes = NULL;
-        }
-
-        if (pFaceVertexIndices != NULL) {
-            free(pFaceVertexIndices);
-            pFaceVertexIndices = NULL;
-        }
-
-        if (pFaceVertexTexCoordIndices != NULL) {
-            free(pFaceVertexTexCoordIndices);
-            pFaceVertexTexCoordIndices = NULL;
-        }
-
-        if (pFaceVertexNormalIndices != NULL) {
-            free(pFaceVertexNormalIndices);
-            pFaceVertexNormalIndices = NULL;
-        }
-
+        mioFree(&pVertices);
+        mioFree(&pNormals);
+        mioFree(&pTexCoords);
+        mioFree(&pFaceSizes);
+        mioFree(&pFaceVertexIndices);
+        mioFree(&pFaceVertexTexCoordIndices);
+        mioFree(&pFaceVertexNormalIndices);
+            
         numVertices = 0;
         numNormals = 0;
         numTexCoords = 0;
@@ -108,40 +81,13 @@ int main()
             pFaceVertexNormalIndices, numVertices, numNormals,
             numTexCoords, numFaces);
 
-        if (pVertices != NULL) {
-            free(pVertices);
-            pVertices = NULL;
-        }
-
-        if (pNormals != NULL) {
-            free(pNormals);
-            pNormals = NULL;
-        }
-
-        if (pTexCoords != NULL) {
-            free(pTexCoords);
-            pTexCoords = NULL;
-        }
-
-        if (pFaceSizes != NULL) {
-            free(pFaceSizes);
-            pFaceSizes = NULL;
-        }
-
-        if (pFaceVertexIndices != NULL) {
-            free(pFaceVertexIndices);
-            pFaceVertexIndices = NULL;
-        }
-
-        if (pFaceVertexTexCoordIndices != NULL) {
-            free(pFaceVertexTexCoordIndices);
-            pFaceVertexTexCoordIndices = NULL;
-        }
-
-        if (pFaceVertexNormalIndices != NULL) {
-            free(pFaceVertexNormalIndices);
-            pFaceVertexNormalIndices = NULL;
-        }
+        mioFree(&pVertices);
+        mioFree(&pNormals);
+        mioFree(&pTexCoords);
+        mioFree(&pFaceSizes);
+        mioFree(&pFaceVertexIndices);
+        mioFree(&pFaceVertexTexCoordIndices);
+        mioFree(&pFaceVertexNormalIndices);
 
         numVertices = 0;
         numNormals = 0;
@@ -170,40 +116,13 @@ int main()
             pFaceVertexNormalIndices, numVertices, numNormals,
             numTexCoords, numFaces);
 
-        if (pVertices != NULL) {
-            free(pVertices);
-            pVertices = NULL;
-        }
-
-        if (pNormals != NULL) {
-            free(pNormals);
-            pNormals = NULL;
-        }
-
-        if (pTexCoords != NULL) {
-            free(pTexCoords);
-            pTexCoords = NULL;
-        }
-
-        if (pFaceSizes != NULL) {
-            free(pFaceSizes);
-            pFaceSizes = NULL;
-        }
-
-        if (pFaceVertexIndices != NULL) {
-            free(pFaceVertexIndices);
-            pFaceVertexIndices = NULL;
-        }
-
-        if (pFaceVertexTexCoordIndices != NULL) {
-            free(pFaceVertexTexCoordIndices);
-            pFaceVertexTexCoordIndices = NULL;
-        }
-
-        if (pFaceVertexNormalIndices != NULL) {
-            free(pFaceVertexNormalIndices);
-            pFaceVertexNormalIndices = NULL;
-        }
+        mioFree(&pVertices);
+        mioFree(&pNormals);
+        mioFree(&pTexCoords);
+        mioFree(&pFaceSizes);
+        mioFree(&pFaceVertexIndices);
+        mioFree(&pFaceVertexTexCoordIndices);
+        mioFree(&pFaceVertexNormalIndices);
 
         numVertices = 0;
         numNormals = 0;
@@ -235,40 +154,13 @@ int main()
             pFaceVertexNormalIndices, numVertices, numNormals,
             numTexCoords, numFaces);
 
-        if (pVertices != NULL) {
-            free(pVertices);
-            pVertices = NULL;
-        }
-
-        if (pNormals != NULL) {
-            free(pNormals);
-            pNormals = NULL;
-        }
-
-        if (pTexCoords != NULL) {
-            free(pTexCoords);
-            pTexCoords = NULL;
-        }
-
-        if (pFaceSizes != NULL) {
-            free(pFaceSizes);
-            pFaceSizes = NULL;
-        }
-
-        if (pFaceVertexIndices != NULL) {
-            free(pFaceVertexIndices);
-            pFaceVertexIndices = NULL;
-        }
-
-        if (pFaceVertexTexCoordIndices != NULL) {
-            free(pFaceVertexTexCoordIndices);
-            pFaceVertexTexCoordIndices = NULL;
-        }
-
-        if (pFaceVertexNormalIndices != NULL) {
-            free(pFaceVertexNormalIndices);
-            pFaceVertexNormalIndices = NULL;
-        }
+        mioFree(&pVertices);
+        mioFree(&pNormals);
+        mioFree(&pTexCoords);
+        mioFree(&pFaceSizes);
+        mioFree(&pFaceVertexIndices);
+        mioFree(&pFaceVertexTexCoordIndices);
+        mioFree(&pFaceVertexNormalIndices);
 
         numVertices = 0;
         numNormals = 0;
@@ -294,40 +186,13 @@ int main()
             pFaceVertexNormalIndices, numVertices, numNormals,
             numTexCoords, numFaces);
 
-        if (pVertices != NULL) {
-            free(pVertices);
-            pVertices = NULL;
-        }
-
-        if (pNormals != NULL) {
-            free(pNormals);
-            pNormals = NULL;
-        }
-
-        if (pTexCoords != NULL) {
-            free(pTexCoords);
-            pTexCoords = NULL;
-        }
-
-        if (pFaceSizes != NULL) {
-            free(pFaceSizes);
-            pFaceSizes = NULL;
-        }
-
-        if (pFaceVertexIndices != NULL) {
-            free(pFaceVertexIndices);
-            pFaceVertexIndices = NULL;
-        }
-
-        if (pFaceVertexTexCoordIndices != NULL) {
-            free(pFaceVertexTexCoordIndices);
-            pFaceVertexTexCoordIndices = NULL;
-        }
-
-        if (pFaceVertexNormalIndices != NULL) {
-            free(pFaceVertexNormalIndices);
-            pFaceVertexNormalIndices = NULL;
-        }
+        mioFree(&pVertices);
+        mioFree(&pNormals);
+        mioFree(&pTexCoords);
+        mioFree(&pFaceSizes);
+        mioFree(&pFaceVertexIndices);
+        mioFree(&pFaceVertexTexCoordIndices);
+        mioFree(&pFaceVertexNormalIndices);
 
         numVertices = 0;
         numNormals = 0;
@@ -356,40 +221,13 @@ int main()
             pFaceVertexNormalIndices, numVertices, numNormals,
             numTexCoords, numFaces);
 
-        if (pVertices != NULL) {
-            free(pVertices);
-            pVertices = NULL;
-        }
-
-        if (pNormals != NULL) {
-            free(pNormals);
-            pNormals = NULL;
-        }
-
-        if (pTexCoords != NULL) {
-            free(pTexCoords);
-            pTexCoords = NULL;
-        }
-
-        if (pFaceSizes != NULL) {
-            free(pFaceSizes);
-            pFaceSizes = NULL;
-        }
-
-        if (pFaceVertexIndices != NULL) {
-            free(pFaceVertexIndices);
-            pFaceVertexIndices = NULL;
-        }
-
-        if (pFaceVertexTexCoordIndices != NULL) {
-            free(pFaceVertexTexCoordIndices);
-            pFaceVertexTexCoordIndices = NULL;
-        }
-
-        if (pFaceVertexNormalIndices != NULL) {
-            free(pFaceVertexNormalIndices);
-            pFaceVertexNormalIndices = NULL;
-        }
+        mioFree(&pVertices);
+        mioFree(&pNormals);
+        mioFree(&pTexCoords);
+        mioFree(&pFaceSizes);
+        mioFree(&pFaceVertexIndices);
+        mioFree(&pFaceVertexTexCoordIndices);
+        mioFree(&pFaceVertexNormalIndices);
 
         numVertices = 0;
         numNormals = 0;
@@ -416,20 +254,9 @@ int main()
 
         mioWriteOFF("cube-out.off", pVertices, pFaceVertexIndices, pFaceSizes, pEdgeVertexIndices, numVertices, numFaces, numEdges);
 
-        if (pVertices != NULL) {
-            free(pVertices);
-            pVertices = NULL;
-        }
-
-        if (pFaceVertexIndices != NULL) {
-            free(pFaceVertexIndices);
-            pFaceVertexIndices = NULL;
-        }
-
-        if (pFaceSizes != NULL) {
-            free(pFaceSizes);
-            pFaceSizes = NULL;
-        }
+        mioFree(&pVertices);
+        mioFree(&pFaceVertexIndices);
+        mioFree(&pFaceSizes);
 
         numVertices = 0;
         numFaces = 0;
@@ -443,7 +270,7 @@ int main()
 
 		mioReadSTL(DATA_DIR "/cube.stl",
 				   &pVertices,
-                    &pNormals,
+                &pNormals,
 				   &numVertices);
 
 		ASSERT(pVertices != NULL);
@@ -457,17 +284,8 @@ int main()
 					pNormals,
 					numVertices);
 
-		if(pVertices != NULL)
-		{
-			free(pVertices);
-			pVertices = NULL;
-		}
-
-		if(pNormals != NULL)
-		{
-			free(pNormals);
-			pNormals = NULL;
-		}
+		mioFree(&pVertices);
+		mioFree(&pNormals);
 
 		numVertices = 0;
 	}
@@ -510,23 +328,9 @@ int main()
 					numTexCoords,
 					numFaces);
 
-		if(pVertices != NULL)
-		{
-			free(pVertices);
-			pVertices = NULL;
-		}
-
-		if(pFaceSizes != NULL)
-		{
-			free(pFaceSizes);
-			pFaceSizes = NULL;
-		}
-
-		if(pFaceVertexIndices != NULL)
-		{
-			free(pFaceVertexIndices);
-			pFaceVertexIndices = NULL;
-		}
+		mioFree(&pVertices);
+		mioFree(&pFaceSizes);
+		mioFree(&pFaceVertexIndices);
 
 		numVertices = 0;
 		numFaces = 0;

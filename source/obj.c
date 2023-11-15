@@ -625,7 +625,7 @@ void mioWriteOBJ(
 
 		int faceSize = pFaceSizes[f];
 
-		fprintf(file, "v ");
+		fprintf(file, "f ");
 
 		// for each vertex in face
 		for(int v = 0; v < faceSize; v++)

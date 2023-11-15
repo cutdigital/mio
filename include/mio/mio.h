@@ -84,6 +84,10 @@ void mioWrite(
     unsigned int* numFaces
 );
 
+// frees the memory associated with the given pointer and sets the pointer to NULL.
+// NOTE: pMemPtr must be the address of a pointer that was internally allocated by "mio"
+void mioFree(void** pMemPtr);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif // #ifdef __cplusplus
