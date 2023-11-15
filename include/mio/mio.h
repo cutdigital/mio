@@ -52,7 +52,7 @@ ssize_t getline(char** lineptr, size_t* n, FILE* stream);
 #endif // #if defined(_WIN32)
 
 // structure for a mesh that is loaded from file using mio functions
-struct MioMesh
+typedef struct MioMesh
 { 
 	double* pVertices;
 	double* pNormals;
@@ -67,7 +67,7 @@ struct MioMesh
 	unsigned int numNormals;
 	unsigned int numTexCoords;
 	unsigned int numFaces;
-};
+}MioMesh;
 
 /*
     Function to read in a mesh file. Supported file formats are .obj and .off
@@ -102,9 +102,13 @@ void mioWrite(
     unsigned int* numFaces
 );
 
-// frees the memory associated with the given pointer and sets the pointer to NULL.
+// Frees the memory associated with the given pointer and sets the pointer to NULL.
 // NOTE: pMemPtr must be the address of a pointer that was internally allocated by "mio"
 void mioFree(void** pMemPtr);
+
+// Frees the memory of the given mesh pointers and sets the pointers to NULL.
+// NOTE: The pointers must have been internally allocated by "mio"
+void mioFreeMesh(MioMesh** pMemPtr);
 
 #ifdef __cplusplus
 } // extern "C"

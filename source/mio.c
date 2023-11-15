@@ -131,12 +131,31 @@ void mioWrite(
 void mioFree(void** pMemPtr)
 {
 	assert(pMemPtr != NULL);
-	
+
 	if((*pMemPtr) != NULL)
 	{
 		free((*pMemPtr));
 		(*pMemPtr) = NULL;
 	}
+}
+
+void mioFreeMesh(MioMesh** pMemPtr)
+{
+	assert(pMemPtr != NULL);
+
+	mioFree((void**)&((*pMemPtr)->pVertices));
+	mioFree((void**)&((*pMemPtr)->pNormals));
+	mioFree((void**)&((*pMemPtr)->pTexCoords));
+
+	mioFree((void**)&((*pMemPtr)->pFaceSizes));
+	mioFree((void**)&((*pMemPtr)->pFaceVertexIndices));
+	mioFree((void**)&((*pMemPtr)->pFaceVertexTexCoordIndices));
+	mioFree((void**)&((*pMemPtr)->pFaceVertexNormalIndices));
+
+	(*pMemPtr)->numVertices = 0;
+	(*pMemPtr)->numNormals = 0;
+	(*pMemPtr)->numTexCoords = 0;
+	(*pMemPtr)->numFaces = 0;
 }
 
 #endif // #if defined (_WIN32)
