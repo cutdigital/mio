@@ -403,7 +403,7 @@ void mioReadOBJ(
 
 							int val;
 							int sscanfRet =
-								sscanf(token, "%d", &val); // extract face vertex data index
+								sscanf(tokenElem, "%d", &val); // extract face vertex data index
 
 							switch(faceVertexDataIt)
 							{
