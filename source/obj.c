@@ -360,7 +360,7 @@ void mioReadOBJ(
 
 						// allocate enough to accomodate all characters on the line since a face can be defined by an
 						// arbitrary number of vertices whose indices typically require several digits.
-						buf = (char*)realloc(NULL, sizeof(char) * tokenLen);
+						buf = (char*)realloc(buf, sizeof(char) * tokenLen);
 
 						memset(buf, '\0', tokenLen);
 
