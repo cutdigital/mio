@@ -609,8 +609,8 @@ void mioWriteOBJ(
 	for(unsigned int i = 0; i < (unsigned int)numTexcoords; ++i)
 	{
 
-		const double s = pTexCoords[i * 3u + 0u];
-		const double t = pTexCoords[i * 3u + 1u];
+		const double s = pTexCoords[i * 2u + 0u];
+		const double t = pTexCoords[i * 2u + 1u];
 
 		fprintf(file, "vt %f %f\n", s, t);
 	}
