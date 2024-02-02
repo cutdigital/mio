@@ -30,6 +30,7 @@
 #include "mio/mio.h"
 
 #include <assert.h>
+#include <stdlib.h>
 
 #if defined(_WIN32)
 #	include <stdlib.h> // https://stackoverflow.com/questions/44504429/c-write-access-violation
@@ -128,6 +129,8 @@ void mioWrite(
 	// TODO
 }
 
+#endif // #if defined (_WIN32)
+
 void mioFree(void* pMemPtr)
 {
 	if(pMemPtr != NULL)
@@ -161,4 +164,3 @@ void mioFreeMesh(MioMesh* pMeshPtr)
 	pMeshPtr->numFaces = 0;
 }
 
-#endif // #if defined (_WIN32)
