@@ -36,7 +36,6 @@ extern "C" {
     
 #include "mio/obj.h"
 #include "mio/off.h"
-#include "mio/ply.h"
 #include "mio/stl.h"
 
 #if defined(_WIN32)

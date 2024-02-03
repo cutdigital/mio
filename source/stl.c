@@ -261,7 +261,9 @@ void mioReadSTL(
 			{
 				// allocate user pointers
 				*pVertices = (double*)malloc(nVertices * sizeof(double) * 3);
+				memset(*pVertices, 0, nVertices * sizeof(unsigned int));
 				*pNormals = (double*)malloc(nNormals * sizeof(double) * 3);
+				memset(*pVertices, 0, nNormals * sizeof(unsigned int));
 				//*pVertexOffsets = (unsigned int*)malloc(solidCommandCounter * sizeof(unsigned int));
 			}
 
