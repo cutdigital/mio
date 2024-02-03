@@ -29,4 +29,10 @@ if(PROJECT_IS_TOP_LEVEL)
     target_include_directories(example PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
     target_link_libraries(example PRIVATE mio)
     target_compile_definitions(example PRIVATE -DDATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/example/data")
+
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND UNIX)
+      message(STATUS "enable valgrind debug flags")
+      target_compile_options(example PRIVATE -ggdb3 )
+    endif()
+
 endif()

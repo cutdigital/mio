@@ -351,7 +351,7 @@ void mioReadOBJ(
 
 						//printf("token: %s\n", token);
 
-						const size_t tokenLen = strlen(token);
+						const size_t tokenLen = strlen(token) + 1; // +1 for null terminator character
 
 						if(tokenLen == 0)
 						{
@@ -377,8 +377,10 @@ void mioReadOBJ(
 						// printf("buf: %s\n", buf);
 
 						// for each data element of a face-vertex
-						for(tokenElem = strtok(buf, "/"); tokenElem != NULL;
-							tokenElem = strtok(tokenElem + strlen(tokenElem) + 1, "/"))
+						for(
+							tokenElem = strtok(buf, "/"); 
+							tokenElem != NULL;
+							tokenElem = strtok(tokenElem + strlen(tokenElem), "/"))
 						{
 
 							// distance from the beginning of "buf", where "buf" contains a small string
@@ -457,6 +459,7 @@ void mioReadOBJ(
 			if(nVertices > 0)
 			{
 				*pVertices = (double*)malloc(nVertices * sizeof(double) * 3);
+				memset(*pVertices, 0, nVertices * sizeof(unsigned int));
 			}
 
 			printf("\t%d normals\n", nNormals);
@@ -464,6 +467,7 @@ void mioReadOBJ(
 			if(nNormals > 0)
 			{
 				*pNormals = (double*)malloc(nNormals * sizeof(double) * 3);
+				memset(*pNormals, 0, nNormals * sizeof(unsigned int));
 			}
 
 			printf("\t%d texture-coords\n", nTexCoords);
@@ -471,6 +475,7 @@ void mioReadOBJ(
 			if(nTexCoords > 0)
 			{
 				*pTexCoords = (double*)malloc(nTexCoords * sizeof(double) * 2);
+				memset(*pTexCoords, 0, nTexCoords * sizeof(unsigned int));
 			}
 
 			printf("\t%d face(s)\n", nFaces);
@@ -478,6 +483,7 @@ void mioReadOBJ(
 			if(nFaces > 0)
 			{
 				*pFaceSizes = (unsigned int*)malloc(nFaces * sizeof(unsigned int));
+				memset(*pFaceSizes, 0, nFaces * sizeof(unsigned int));
 			}
 
 			*numVertices = nVertices;
@@ -496,6 +502,7 @@ void mioReadOBJ(
 			}
 
 			*pFaceVertexIndices = (unsigned int*)malloc(nFaceIndices * sizeof(unsigned int));
+			memset(*pFaceVertexIndices, 0, nFaceIndices * sizeof(unsigned int));
 
 			if(nTexCoords > 0)
 			{
@@ -503,6 +510,7 @@ void mioReadOBJ(
 
 				*pFaceVertexTexCoordIndices =
 					(unsigned int*)malloc(nFaceIndices * sizeof(unsigned int));
+				memset(*pFaceVertexTexCoordIndices, 0, nFaceIndices * sizeof(unsigned int));
 			}
 
 			if(nNormals > 0)
@@ -511,6 +519,7 @@ void mioReadOBJ(
 
 				*pFaceVertexNormalIndices =
 					(unsigned int*)malloc(nFaceIndices * sizeof(unsigned int));
+				memset(*pFaceVertexNormalIndices, 0, nFaceIndices * sizeof(unsigned int));
 			}
 		}
 
