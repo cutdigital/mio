@@ -17,9 +17,7 @@ add_library(mio STATIC
   ${CMAKE_CURRENT_SOURCE_DIR}/source/mio.c
   ${CMAKE_CURRENT_SOURCE_DIR}/source/obj.c
   ${CMAKE_CURRENT_SOURCE_DIR}/source/off.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/source/ply.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/source/stl.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/source/third-party/plyfile.c)
+  ${CMAKE_CURRENT_SOURCE_DIR}/source/stl.c)
 
 target_include_directories(mio PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
