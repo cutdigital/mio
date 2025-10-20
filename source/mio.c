@@ -82,6 +82,7 @@ ssize_t getline(char** lineptr, size_t* n, FILE* stream)
 	(*lineptr)[pos] = '\0';
 	return pos;
 }
+#endif
 
 void mioFree(void* pMemPtr)
 {
