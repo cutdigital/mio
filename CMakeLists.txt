@@ -33,9 +33,7 @@ add_library(mio ${LIB_TYPE}
   source/mio.c
   source/obj.c
   source/off.c
-  source/ply.c
-  source/stl.c
-  source/third-party/plyfile.c)
+  source/stl.c)
 
 # Set library properties
 set_target_properties(mio PROPERTIES
