@@ -443,54 +443,5 @@ int main()
 		numVertices = 0;
 	}
 
-	///////////////////////////////////////////////////////////////////////////////
-	// PLY files
-	///////////////////////////////////////////////////////////////////////////////
-
-	{ // mioReadPLY (only vertices and faces)
-
-		mioReadPLY(DATA_DIR "/cube.ply",
-				   &pVertices,
-				   &pNormals,
-				   &pTexCoords,
-				   &pFaceSizes,
-				   &pFaceVertexIndices,
-				   &pFaceVertexTexCoordIndices,
-				   &pFaceVertexNormalIndices,
-				   &numVertices,
-				   &numNormals,
-				   &numTexCoords,
-				   &numFaces);
-
-		ASSERT(pVertices != NULL);
-		ASSERT(pFaceSizes != NULL);
-		ASSERT(pFaceVertexIndices != NULL);
-		ASSERT(numVertices == 8);
-		ASSERT(numFaces == 12);
-
-		mioWritePLY("cube-out.ply",
-					pVertices,
-					pNormals,
-					pTexCoords,
-					pFaceSizes,
-					pFaceVertexIndices,
-					pFaceVertexTexCoordIndices,
-					pFaceVertexNormalIndices,
-					numVertices,
-					numNormals,
-					numTexCoords,
-					numFaces);
-
-		mioFree(pVertices);
-		pVertices = NULL;
-		mioFree(pFaceSizes);
-		pFaceSizes = NULL;
-		mioFree(pFaceVertexIndices);
-		pFaceVertexIndices = NULL;
-
-		numVertices = 0;
-		numFaces = 0;
-	}
-
 	return 0;
 }
